@@ -155,20 +155,33 @@ namespace CarRentals
             {
                 var reservations = Reservations.Where(r => r.Car == car);
 
-                bool overlap = false;
-                foreach (Reservation res in reservations)
-                {
-                    if (Overlap(start, end, res.Start, res.End))
-                    {
-                        overlap = true;
-                    }
-                }
+                var numOverlappingReservations = Reservations.Where(r => r.Car == car && Overlap(start, end, r.Start, r.End)).Count();
 
-                if (!overlap)
+                if (numOverlappingReservations > 0)
+                {
+                    continue;
+                }
+                else
                 {
                     return car;
                 }
+
+                // bool overlap = false;
+                // foreach (Reservation res in reservations)
+                // {
+                //     if (Overlap(start, end, res.Start, res.End))
+                //     {
+                //         overlap = true;
+                //     }
+                // }
+
+                // if (!overlap)
+                // {
+                //     return car;
+                // }
             }
+
+            List<Reservation> possibleRes = Reservations.Where(r => r.Car.Type == carType && Overlap(start, end, r.Start, r.End)).ToList();
 
             return null;
         }
