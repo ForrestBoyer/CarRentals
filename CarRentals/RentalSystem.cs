@@ -5,10 +5,12 @@ namespace CarRentals
     public static class RentalSystem
     {
         public static Dictionary<CarType, List<Car>> Cars { get; set; }
-        public static List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public static List<Reservation> Reservations { get; set; }
 
         static RentalSystem()
         {
+            Reservations = new List<Reservation>();
+
             Cars = new Dictionary<CarType, List<Car>>();
 
             foreach (CarType type in Enum.GetValues(typeof(CarType)))

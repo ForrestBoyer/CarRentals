@@ -4,7 +4,7 @@ namespace CarRentals.Tests
 {
     public class RentalSystemTests
     {
-        public static void ResetRentalSystem()
+        private static void ResetRentalSystem()
         {
             RentalSystem.Cars.Clear();
             foreach (CarType type in Enum.GetValues(typeof(CarType)))
@@ -12,6 +12,21 @@ namespace CarRentals.Tests
                 RentalSystem.Cars[type] = new List<Car>();
             }
             RentalSystem.Reservations.Clear();
+        }
+
+        [Fact]
+        public void TestRentalSystem_InitializesProperly()
+        {
+            Assert.NotNull(RentalSystem.Reservations);
+            Assert.NotNull(RentalSystem.Cars);
+            Assert.NotNull(RentalSystem.Cars[CarType.Sedan]);
+            Assert.NotNull(RentalSystem.Cars[CarType.SUV]);
+            Assert.NotNull(RentalSystem.Cars[CarType.Van]);
+
+            Assert.Empty(RentalSystem.Reservations);
+            Assert.Empty(RentalSystem.Cars[CarType.Sedan]);
+            Assert.Empty(RentalSystem.Cars[CarType.SUV]);
+            Assert.Empty(RentalSystem.Cars[CarType.Van]);
         }
 
         [Fact]
