@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+using System.Diagnostics.Contracts;
 using CarRentals.Types;
 
 namespace CarRentals.Tests
@@ -74,6 +76,73 @@ namespace CarRentals.Tests
             cars.Add(new Car(CarType.Van));
             RentalSystem.AddCars(cars);
             Assert.True(RentalSystem.Cars[CarType.Van].Count == 2);
+        }
+
+        [Fact]
+        public void TestRemoveCar()
+        {
+            ResetRentalSystem();
+
+            Car car = new Car(CarType.Sedan);
+
+            Assert.NotNull(car);
+
+            RentalSystem.AddCar(car);
+
+            Car? car2 = RentalSystem.Cars[CarType.Sedan].First();
+
+            Assert.Equal(car, car2);
+
+            RentalSystem.RemoveCar(car);
+
+            Assert.NotNull(car);
+            Assert.NotNull(car2);
+
+            Car? car3 = RentalSystem.Cars[CarType.Sedan].FirstOrDefault();
+
+            Assert.Null(car3);
+        }
+
+        [Fact]
+        public void TestRemoveCars()
+        {
+            ResetRentalSystem();
+
+            List<Car> cars = new List<Car>();
+            cars.Add(new Car(CarType.Sedan));
+            cars.Add(new Car(CarType.Sedan));
+
+            RentalSystem.AddCars(cars);
+
+            List<Car> retCars = RentalSystem.Cars[CarType.Sedan];
+
+            Assert.Equal(2, retCars.Count);
+
+            RentalSystem.RemoveCars(cars);
+
+            retCars = RentalSystem.Cars[CarType.Sedan];
+
+            Assert.Empty(retCars);
+        }
+
+        [Fact]
+        public void Test_ReservationPointsToCarAfterDeletion()
+        {
+            ResetRentalSystem();
+
+            Car car = new Car(CarType.Sedan);
+            RentalSystem.AddCar(car);
+            DateTime start = DateTime.Now.AddHours(1);
+            DateTime end = start.AddDays(3);
+
+            Reservation? res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
+
+            RentalSystem.RemoveCar(car);
+
+            Assert.NotNull(res);
+            Assert.NotNull(res.Car);
+            Assert.NotNull(car);
+            Assert.Equal(car, res.Car);
         }
 
         [Fact]
