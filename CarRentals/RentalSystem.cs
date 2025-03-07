@@ -55,7 +55,7 @@ namespace CarRentals
             {
                 AddCar(car);
             }
-        }
+        } 
 
         /// <summary>
         /// Adds num cars of specified type to inventory
@@ -75,7 +75,8 @@ namespace CarRentals
         /// </summary>
         public static void RemoveCar(Car car)
         {
-            Reservations.RemoveAll(r => r.Car == car);
+            // Could consider removing all reservations associated with a car when it is removed
+            // Reservations.RemoveAll(r => r.Car == car);
             Cars[car.Type].Remove(car);
         }
 
@@ -186,4 +187,3 @@ namespace CarRentals
         }
     }
 }
- 
