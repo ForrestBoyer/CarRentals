@@ -182,7 +182,7 @@ namespace CarRentals.Tests
             RentalSystem.AddCar(car);
 
             Car? car2 = RentalSystem.GetAvailableCar(start, end, CarType.Sedan);
-            Car? car3 = RentalSystem.GetAvailableCar(start, end, CarType.Sedan);
+            Car? car3 = RentalSystem.GetAvailableCar(start, end2, CarType.Sedan);
 
             Assert.NotNull(car2);
             Assert.NotNull(car3);
@@ -243,7 +243,7 @@ namespace CarRentals.Tests
             DateTime start = DateTime.Now.AddHours(1);
             DateTime end = start.AddDays(3);
 
-            Reservation res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
+            Reservation? res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
 
             Assert.NotNull(res);
         }
@@ -257,7 +257,7 @@ namespace CarRentals.Tests
 
             DateTime start = DateTime.Now.AddHours(1);
 
-            Reservation res = RentalSystem.RequestReservation(start, 3, CarType.Sedan);
+            Reservation? res = RentalSystem.RequestReservation(start, 3, CarType.Sedan);
 
             Assert.NotNull(res);
         }
@@ -272,8 +272,8 @@ namespace CarRentals.Tests
             DateTime start = DateTime.Now.AddHours(1);
             DateTime end = start.AddDays(3);
 
-            Reservation res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
-            Reservation res2 = RentalSystem.RequestReservation(start, end, CarType.Sedan);
+            Reservation? res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
+            Reservation? res2 = RentalSystem.RequestReservation(start, end, CarType.Sedan);
 
             Assert.NotNull(res);
             Assert.NotNull(res2);
@@ -292,8 +292,8 @@ namespace CarRentals.Tests
             DateTime start = DateTime.Now.AddHours(1);
             DateTime end = start.AddDays(3);
 
-            Reservation res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
-            Reservation res2 = RentalSystem.RequestReservation(start, end, CarType.Sedan);
+            Reservation? res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
+            Reservation? res2 = RentalSystem.RequestReservation(start, end, CarType.Sedan);
 
             Assert.NotNull(res);
             Assert.Null(res2);
@@ -312,8 +312,8 @@ namespace CarRentals.Tests
             DateTime start2 = start.AddDays(1);
             DateTime end2 = start2.AddDays(3);
 
-            Reservation res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
-            Reservation res2 = RentalSystem.RequestReservation(start2, end2, CarType.Sedan);
+            Reservation? res = RentalSystem.RequestReservation(start, end, CarType.Sedan);
+            Reservation? res2 = RentalSystem.RequestReservation(start2, end2, CarType.Sedan);
 
             Assert.NotNull(res);
             Assert.Null(res2);
